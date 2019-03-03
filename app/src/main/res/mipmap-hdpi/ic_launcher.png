@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema targetNamespace="http://www.w3.org/2001/XMLSchema" blockDefault="#all" elementFormDefault="qualified" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="EN" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty">
+ <xs:annotation>
+  <xs:documentation>
+    Part 1 version: Id: structures.xsd,v 1.2 2004/01/15 11:34:25 ht Exp 
+    Part 2 version: Id: datatypes.xsd,v 1.3 2004/01/23 18:11:13 ht Exp 
+  </xs:documentation>
+ </xs:annotation>
+
+ <xs:annotation>
+   <xs:documentation source="http://www.w3.org/TR/2004/PER-xmlschema-1-20040318/structures.html">
+   The schema corresponding to this document is normative,
+   with respect to the syntactic constraints it expresses in the
+   XML Schema language.  The documentation (within &lt;documentation> elements)
+   below, is not normative, but rather highlights important aspects of
+   the W3C Recommendation of which this is a part</xs:documentation>
+ </xs:annotation>
+
+ <xs:annotation>
+   <xs:documentation>
+   The simpleType element and all of its members are defined
+      towards the end of this schema document</xs:documentation>
+ </xs:annotation>
+
+ <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd">
+   <xs:annotation>
+     <xs:documentation>
+       Get access to the xml: attribute groups for xml:lang
+       as declared on 'schema' and 'documentation' below
+     </xs:documentation>
+   </xs:annotation>
+ </xs:import>
+
+ <xs:complexType name="openAttrs">
+   <xs:annotation>
+     <xs:documentation>
+       This type is extended by almost all schema types
+       to allow attributes from other namespaces to be
+       added to user schemas.
+     </xs:documentation>
+   </xs:annotation>
+   <xs:complexContent>
+     <xs:restriction base="xs:anyType">
+       <xs:anyAttribute namespace="##other" processContents="lax"/>
+     </xs:restriction>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:complexType name="annotated">
+   <xs:annotation>
+     <xs:documentation>
+       This type is extended by all types which allow annotation
+       other than &lt;schema&gt; itself
+     </xs:documentation>
+   </xs:annotation>
+   <xs:complexContent>
+     <xs:extension base="xs:openAttrs">
+       <xs:sequence>
+         <xs:element ref="xs:annotation" minOccurs="0"/>
+       </xs:sequence>
+       <xs:attribute name="id" type="xs:ID"/>
+     </xs:extension>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:group name="schemaTop">
+  <xs:annotation>
+   <xs:documentation>
+   This group is for the
+   elements which occur freely at the top level of schemas.
+   All of their types are based on the "annotated" type by extension.</xs:documentation>
+  </xs:annotation>
+  <xs:choice>
+   <xs:group ref="xs:redefinable"/>
+   <xs:element ref="xs:element"/>
+   <xs:element ref="xs:attribute"/>
+   <xs:element ref="xs:notation"/>
+  </xs:choice>
+ </xs:group>
+ 
+ <xs:group name="redefinable">
+  <xs:annotatio
